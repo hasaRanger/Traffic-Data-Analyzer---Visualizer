@@ -30,14 +30,20 @@ This project is a **junior-level Python programe** that processes traffic CSV da
 
 ```bash
 .
-├── data/                     # CSV dataset directory
-│   ├── traffic_data15062024.csv
-│   ├── traffic_data16062024.csv
-│   └── traffic_data21062024.csv
-├── results.txt               # Processed outcomes
-├── traffic_analysis.py       # Main Python script
-├── Design.txt                # Program design (Pseudocode)
-└── README.md                 # Project documentation
+├── Traffic-Data-Analyzer-Visulaizer-main/ 
+│   ├── data/                     # CSV dataset directory
+│   │   ├── traffic_data15062024.csv
+│   │   ├── traffic_data16062024.csv
+│   │   └── traffic_data21062024.csv
+│   ├── sample/                   # samples of histogram visualizations
+│   │   ├── histogram_15062024.png
+│   │   ├── histogram_16062024.png
+│   │   └── histogram_21062024.png
+│   ├── results.txt               # Processed outcomes
+│   ├── testTkinter.py            # Tkinter test helper
+│   ├── traffic_analyzer.py       # Main Python script
+│   ├── Design.txt                # Program design (Pseudocode)
+│   └── README.md                 # Project documentation
 
 ```
 
@@ -45,24 +51,23 @@ This project is a **junior-level Python programe** that processes traffic CSV da
 
 ## 🚀 How to run
 
-1. Clone this respository:
+1. Extract or clone the repo and `cd` into the inner folder that container `traffic_analyzer.py`:
    
-   ```bash
-    git clone https://github.com/hasaRanger/Traffic Data Analyzer & Visualizer
-    cd Traffic Data Analyzer & Visualizer
-   ```
-   
-2. Make sure the csv files are inside the `data/` directory.
-3. Run the main script:
-
-   ```bash
-      python Traffic Data Analyzer & Visualizer.py
+   ```console
+   # Example if you extracted the zip file
+   cd Traffic-Data-Analyzer-Visualizer-main/Traffic-Data-Analyzer-Visualizer-main
    ```
 
-4. Enter a valid date (`DDMMYYYY`) when prompted:
+2. Run the main script:
+
+   ```console
+   python traffic_analyzer.py
+   ```
+
+3. Enter a valid date (`DDMMYYYY`) when prompted:
    - Example: `21062024`
   
-6. View
+4. View
    - Processed outcomes in the terminal
    - A histogram window showing hourly traffic flow
    - Saved results in `results.txt`
