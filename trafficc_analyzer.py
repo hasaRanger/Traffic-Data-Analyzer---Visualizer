@@ -204,9 +204,9 @@ class MultiCSVProcessor:
 
     def process_files(self, file_path, selected_date):
         file_map = {
-            "15062024": "traffic_data15062024.csv",
-            "16062024": "traffic_data16062024.csv",
-            "21062024": "traffic_data21062024.csv"
+            "15062024": "data/traffic_data15062024.csv",
+            "16062024": "data/traffic_data16062024.csv",
+            "21062024": "data/traffic_data21062024.csv"
         }
              
         if selected_date not in file_map:
@@ -382,11 +382,11 @@ def main():
         # Map selected_date to file_path
         try:
             if selected_date.strip() == "15062024":
-                file_path = "traffic_data15062024.csv"
+                file_path = "data/traffic_data15062024.csv"
             elif selected_date.strip() == "16062024":
-                file_path = "traffic_data16062024.csv"
+                file_path = "data/traffic_data16062024.csv"
             elif selected_date.strip() == "21062024":
-                file_path = "traffic_data21062024.csv"
+                file_path = "data/traffic_data21062024.csv"
             else:
                 print("No data available for this date.")
                 continue
