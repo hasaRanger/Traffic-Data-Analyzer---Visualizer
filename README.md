@@ -102,6 +102,8 @@ Do you wish to load another dataset ('Y' for Yes or 'N' for No):
 
 ### Histogram:
 
+![histogram](sample/histogram_15062024.png)
+
 ---
 
 ## 🛠️ Tech Stack
@@ -117,7 +119,8 @@ Do you wish to load another dataset ('Y' for Yes or 'N' for No):
 - This project can be extended with:
   - Dynamic CSV file discovery
   - Support for large datasets
-  - More advanced analyzing & visulaizations (e.g., matplotlib)    
+  - More advanced analyzing & visulaizations (e.g., matplotlib)
+  - Replace current CLI interface with a GUI, offering a better user experience
 
 
 
