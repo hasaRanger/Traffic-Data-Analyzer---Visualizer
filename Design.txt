@@ -1,0 +1,164 @@
+BEGIN
+DEFINE validate_date_input
+    CREATE days_per_month AS DICTIONARY with months and the respective days 
+    REPEAT
+        PROMPT user for date in DD format
+        IF input is not numeric  THEN DISPLAY "Integer Required" AND CONTINUE
+        CONVERT input to INTEGER day
+        IF day is not in range 1 to 31 THEN DISPLAY "Out of range" AND CONTINUE
+        BREAK
+    END REPEAT
+    REPEAT
+        PROMPT user for month in MM format
+        IF input is not numeric THEN DISPLAY "Integer Required" AND CONTINUE
+        CONVERT input into INTEGER month
+        IF month is not in range 1 to 12 THEN DISPLAY "Out of range" AND CONTINUE
+        IF day exceeds days_per_month[month] THEN DISPLAY "Invalid day for this month" AND CONTINUE
+        BREAK
+    END REPEAT
+    REPEAT
+        PROMPT user for year in YYYY format
+        IF input is not numeric THEN DISPLAY "Integer required" AND CONTINUE
+        CONVERT input to INTEGER year
+        IF year is not in range 2000-2024 THEN DISPLAY "Out of range" AND CONTINUE
+        IF year is a leap_year THEN SET days_per_month[2] TO 29
+        IF day exceeds days_per_month[2] for February THEN DISPLAY "Invalid day for February" AND CONTINUE
+        BREAK
+    END REPEAT
+    FORMAT date as "DDMMYYYY"
+    DISPLAY "Valid date entered"
+    Return formatted date
+END FUNCTION
+
+DEFINE validate_continue_input
+    REPEAT
+        PROMPT user with "Y" or "N" for continuing
+        IF input is "Y" THEN RETURN True
+        ELSE IF input is "N" THEN RETURN FALSE
+        ELSE DISPLAY "Invalid input"
+    END REPEAT
+END FUNCTION
+
+CLASS HistogramApp
+    METHOD init(traffic_data, date)
+        INITIALIZE graphical components
+    END METHOD
+
+    METHOD setup_window()
+        DRAW canvas lines and labels
+    END METHOD
+
+    METHOD draw_histogram()
+        COMPUTE scaling factor based on max frequency
+        LOOP on each hour 0 to 23
+            DRAW bar for Elm Avenue/Rabbit Road data
+            DRAW bar for Hanley Highway/Westway data
+        END LOOP
+    END METHOD
+
+    METHOD add_legend()
+        DRAW legend labels and colours
+    END METHOD
+
+    METHOD run()
+        CALL setup_window()
+        CALL draw_histogram()
+        CALL add_legend()
+        DISPLAY canvas 
+    END METHOD
+
+    METHOD close_window()
+        TERMINATE graphical components
+    END METHOD
+
+    METHOD load_csv_file(file_path)
+        READ file data 
+        PARSE and validate data line by line
+        ORGANIZE into traffic_data dictionary 
+    END METHOD 
+
+    METHOD clear_previous_data()
+        RESET traffic_data
+    END METHOD
+
+    METHOD handle_user_interaction(date)
+        DISPLAY success message
+    END METHOD
+
+    METHOD process_files(file_path, date)
+        MAP date to file_path
+        IF file_path exists THEN
+            CALL load_csv_file(file_path)
+            IF traffic data exists THEN
+                DISPLAY success message
+                CREATE Histogram instance and run
+            ELSE
+                DISPLAY "No data available."
+    END METHOD
+END CLASS
+
+
+DEFINE process_csv_data(file_path)
+    TRY
+        READ file_path and store lines as data
+        FOR each line in data REMOVE whitespace and SPLIT by ","
+        CREATE rain_hours as EMPTY LIST
+        FOR each record in data(skipping header)
+            IF "rain" in weather_condition THEN
+                EXTRACT hour from time
+                ADD hour to rain_hours IF NOT already present
+            END IF
+        CREATE Tot_hanley_vehicles as LIST of vehicles on "hanley highway"
+        SET highest_count, busiest_hour to 0 and None respectively
+        FOR each hour in 0 to 23
+            COUNT vehicles in Tot_hanley_vehicles for the hour
+            IF count > highest_count THEN UPDATE highest_count and busiest_hour
+        EXTRACT various metrics as described
+        RETURN metrics as DICTIONARY
+    EXCEPT
+        DISPLAY "Error in processing "
+        RETURN NULL
+END FUNCTION
+
+DEFINE display_outcomes(outcomes)
+    IF outcomes IS NOT NULL
+        DISPLAY all metrics from outcomes
+    ELSE
+        DISPLAY "NO data to display"
+END FUNCTION
+
+DEFINE save_results_to_file(outcomes, selected_date, mode)
+    TRY
+        OPEN results.txt in mode
+        WRITE outcomes to file formatted
+        DISPLAY "Results saved successfully"
+    EXCEPT
+        DISPLAY "Error in saving file"
+END FUNCTION
+
+DEFINE main
+    CLEAR results.txt
+    REPEAT
+        SET selected_date = validate_date_input()
+        SELECT file_path BASED ON selected_date
+        IF no file available THEN CONTINUE
+        SET outcomes =  process_csv_data(file_path)
+        IF outcomes IS NOT NULL
+            CALL display_outcomes(outcomes)
+            CALL save_results_to_file(outcomes, selected_date)
+            CALL processor.process_files()
+        ELSE
+            DISPLAY error message
+        END IF 
+
+        IF NOT  validate_continue_input() THEN
+            DISPLAY "End of run"
+            BREAK loop
+    END REPEAT
+END Function
+
+CALL main()
+
+END Program
+
+        
